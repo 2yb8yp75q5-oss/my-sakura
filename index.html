@@ -1,131 +1,38 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>风的小窝 - 导航站</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background-color: #fff5f6; font-family: 'Microsoft YaHei', sans-serif; overflow-x: hidden; }
-        .sakura-bg { background: linear-gradient(180deg, #fff5f6 0%, #ffebf0 100%); min-height: 100vh; }
-        .cute-btn { transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 2px solid #ffccd5; }
-        .cute-btn:active { transform: scale(0.95); }
-        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); }
-        
-        /* 旋转头像播放器 */
-        .music-player { position: fixed; bottom: 20px; right: 20px; background: white; padding: 5px 15px 5px 5px; border-radius: 50px; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 100; border: 1px solid #ffccd5; }
-        .music-disk { width: 40px; height: 40px; border: 2px solid #ff8fa3; animation: rotate 5s linear infinite; animation-play-state: paused; border-radius: 50%; object-cover; }
-        .music-disk.playing { animation-play-state: running; }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        
-        .snowflake { color: #fff; font-size: 1.2em; position: fixed; top: -10%; z-index: 99; user-select: none; animation: fall 10s linear infinite; }
-        @keyframes fall { 0% { top: -10%; transform: translateX(0); } 100% { top: 100%; transform: translateX(100px); } }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风的小窝</title><script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{background:#fff5f6;font-family:sans-serif;overflow-x:hidden}.sakura-bg{min-height:100vh;background:linear-gradient(180deg,#fff5f6 0%,#ffebf0 100%)}
+.cute-btn{transition:all .3s;border:2px solid #ffccd5;text-align:center}.cute-btn:active{transform:scale(.95)}
+.music-player{position:fixed;bottom:20px;right:20px;background:#fff;padding:5px 15px 5px 5px;border-radius:50px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 15px rgba(0,0,0,.1);z-index:100;border:1px solid #ffccd5}
+.music-disk{width:40px;height:40px;border-radius:50%;border:2px solid #ff8fa3;animation:rotate 5s linear infinite;animation-play-state:paused;object-fit:cover}
+.music-disk.playing{animation-play-state:running}@keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+</style>
 </head>
 <body class="sakura-bg p-4 flex flex-col items-center justify-center">
-
-    <audio id="bgMusic" loop>
-        <source src="./bgm.mp3?v=1.1" type="audio/mpeg">
-    </audio>
-
-    <div class="music-player shadow-lg" onclick="toggleMusic()">
-        <img id="disk" src="./tx.jpg?v=1.1" class="music-disk" alt="disk">
-        <div class="text-left">
-            <p id="musicStatus" class="text-[10px] text-pink-500 font-bold">已暂停</p>
-            <p class="text-[8px] text-gray-400">点击播放背景音乐</p>
-        </div>
-    </div>
-
-    <div class="snowflake" style="left:10%">🌸</div>
-    <div class="snowflake" style="left:50%; animation-delay:2s">🌸</div>
-    <div class="snowflake" style="left:80%; animation-delay:4s">🌸</div>
-
-    <div id="main-page" class="w-full max-w-sm space-y-6 text-center py-8">
-        <div class="relative inline-block">
-            <div class="w-24 h-24 rounded-full border-4 border-white shadow-md overflow-hidden mx-auto">
-                <img src="./tx.jpg?v=1.1" class="w-full h-full object-cover">
-            </div>
-            <div class="absolute -bottom-1 -right-1 bg-pink-400 text-white p-1 rounded-full text-[10px]">🌸</div>
-        </div>
-
-        <div>
-            <h1 class="text-xl font-bold text-[#ff8fa3]">风的小窝</h1>
-            <p class="text-[10px] text-gray-500 mt-1">“为了那些死去的、还活着的人，战斗下去。”</p>
-        </div>
-
-        <div class="space-y-4">
-            <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=njNYflcvtDV7cH8x3mS7kayffGbS3O2u4sPCUkexnFhFw9kbcYpwGWJ2U9OuGO25" 
-               class="cute-btn block w-full bg-[#ff8fa3] text-white text-sm font-bold py-3 rounded-xl shadow-sm">
-                💗 一键加入 QQ 交流群
-            </a>
-
-            <button onclick="showPage('manual-page')" class="cute-btn block w-full bg-white text-[#ff8fa3] text-sm font-bold py-3 rounded-xl shadow-sm border border-pink-100">
-                📚 科学上网·操作全手册
-            </button>
-
-            <button onclick="showPage('pay-page')" class="cute-btn block w-full bg-[#a2d2ff] text-white text-sm font-bold py-3 rounded-xl shadow-sm">
-                🚀 获取最新的魔法师
-            </button>
-        </div>
-
-        <div class="mt-8 p-4 glass-card rounded-2xl border-dashed border-pink-200 border-2 text-center">
-            <p class="text-[10px] text-pink-400 mb-2 italic">✨ 我们的契约次数 (访客统计) ✨</p>
-            <div class="flex justify-center gap-1">
-                <span class="bg-white border border-pink-200 px-2 py-1 rounded text-lg font-mono">0</span>
-                <span class="bg-white border border-pink-200 px-2 py-1 rounded text-lg font-mono">0</span>
-                <span class="bg-white border border-pink-200 px-2 py-1 rounded text-lg font-mono text-pink-500">1</span>
-                <span class="bg-white border border-pink-200 px-2 py-1 rounded text-lg font-mono text-pink-500">9</span>
-            </div>
-            <p class="text-[8px] text-gray-400 mt-2">若链接失效，请长按并在浏览器打开</p>
-        </div>
-    </div>
-
-    <div id="manual-page" class="hidden w-full max-w-sm text-center">
-        <button onclick="showPage('main-page')" class="text-pink-400 text-sm mb-4 block">⬅️ 返回</button>
-        <div class="glass-card p-6 rounded-2xl shadow-sm text-sm text-gray-600 leading-relaxed">
-            <h2 class="text-pink-500 font-bold mb-4">科学上网·操作手册</h2>
-            <p>1. 复制专属订阅链接。</p>
-            <p>2. 在客户端选择导入配置。</p>
-            <p>3. 开启代理后选择节点即可。</p>
-        </div>
-    </div>
-
-    <div id="pay-page" class="hidden w-full max-w-sm text-center">
-        <button onclick="showPage('main-page')" class="text-pink-400 text-sm mb-4 block text-left">⬅️ 返回</button>
-        <div class="glass-card p-6 rounded-2xl shadow-sm">
-            <h2 class="text-pink-500 font-bold mb-2">获取最新魔法</h2>
-            <img src="./skm.jpg?v=1.1" class="w-48 h-48 mx-auto rounded-lg shadow-inner mb-4">
-            <p class="text-[10px] text-pink-300">长按二维码保存图片</p>
-        </div>
-    </div>
-
-    <script>
-        const audio = document.getElementById('bgMusic');
-        const disk = document.getElementById('disk');
-        const status = document.getElementById('musicStatus');
-
-        function toggleMusic() {
-            if (audio.paused) {
-                audio.play();
-                disk.classList.add('playing');
-                status.innerText = "正在播放";
-            } else {
-                audio.pause();
-                disk.classList.remove('playing');
-                status.innerText = "已暂停";
-            }
-        }
-
-        function showPage(id) {
-            document.getElementById('main-page').classList.add('hidden');
-            document.getElementById('manual-page').classList.add('hidden');
-            document.getElementById('pay-page').classList.add('hidden');
-            document.getElementById(id).classList.remove('hidden');
-        }
-
-        document.body.addEventListener('click', () => {
-            if(audio.paused) toggleMusic();
-        }, { once: true });
-    </script>
-</body>
-</html>
+<audio id="bgMusic" loop><source src="./bgm.mp3" type="audio/mpeg"></audio>
+<div class="music-player" onclick="toggleMusic()"><img id="disk" src="./tx.jpg" class="music-disk"><div><p id="ms" class="text-[10px] text-pink-500 font-bold">已暂停</p><p class="text-[8px] text-gray-400">点击播放</p></div></div>
+<div id="main-page" class="w-full max-w-sm space-y-6 text-center py-8">
+<div class="relative inline-block"><img src="./tx.jpg" class="w-24 h-24 rounded-full border-4 border-white shadow-md mx-auto object-cover"><div class="absolute -bottom-1 -right-1 bg-pink-400 text-white p-1 rounded-full text-[10px]">🌸</div></div>
+<div><h1 class="text-xl font-bold text-[#ff8fa3]">风的小窝</h1><p class="text-[10px] text-gray-500 mt-1 italic">“为了那些死去的、还活着的人，战斗下去。”</p></div>
+<div class="space-y-4">
+<a href="https://qun.qq.com/universal-share/share?ac=1&authKey=njNYflcvtDV7cH8x3mS7kayffGbS3O2u4sPCUkexnFhFw9kbcYpwGWJ2U9OuGO25" class="cute-btn block w-full bg-[#ff8fa3] text-white text-sm font-bold py-3 rounded-xl shadow-sm">💗 一键加入 QQ 交流群</a>
+<button onclick="showPage('m-p')" class="cute-btn block w-full bg-white text-[#ff8fa3] text-sm font-bold py-3 rounded-xl shadow-sm border border-pink-100">📚 科学上网·操作全手册</button>
+<button onclick="showPage('p-p')" class="cute-btn block w-full bg-[#a2d2ff] text-white text-sm font-bold py-3 rounded-xl shadow-sm">🚀 获取最新的魔法师</button>
+</div>
+<div class="mt-8 p-4 bg-white/50 rounded-2xl border-dashed border-pink-200 border-2">
+<p class="text-[10px] text-pink-400 mb-2 italic">✨ 访客统计 ✨</p>
+<div class="flex justify-center gap-1 font-mono text-lg"><span class="bg-white border px-1 rounded">0</span><span class="bg-white border px-1 rounded">0</span><span class="bg-white border px-1 rounded text-pink-500">1</span><span class="bg-white border px-1 rounded text-pink-500">9</span></div>
+</div></div>
+<div id="m-p" class="hidden w-full max-w-sm"><button onclick="showPage('main-page')" class="text-pink-400 text-sm mb-4">⬅️ 返回</button>
+<div class="bg-white/80 p-6 rounded-2xl text-sm text-gray-600 space-y-2"><h2 class="text-pink-500 font-bold mb-4 text-center">操作手册</h2><p>1. 复制订阅链接。</p><p>2. 导入客户端。</p><p>3. 开启代理即可。</p></div></div>
+<div id="p-p" class="hidden w-full max-w-sm text-center"><button onclick="showPage('main-page')" class="text-pink-400 text-sm mb-4 text-left block">⬅️ 返回</button>
+<div class="bg-white/80 p-6 rounded-2xl"><h2 class="text-pink-500 font-bold mb-4 text-center">获取最新魔法</h2><img src="./skm.jpg" class="w-48 h-48 mx-auto rounded-lg shadow-inner"><p class="mt-4 text-[10px] text-pink-300">扫码支持作者，获取更新</p></div></div>
+<script>
+const a=document.getElementById('bgMusic'),d=document.getElementById('disk'),s=document.getElementById('ms');
+function toggleMusic(){if(a.paused){a.play();d.classList.add('playing');s.innerText="正在播放"}else{a.pause();d.classList.remove('playing');s.innerText="已暂停"}}
+function showPage(i){document.getElementById('main-page').classList.add('hidden');document.getElementById('m-p').classList.add('hidden');document.getElementById('p-p').classList.add('hidden');document.getElementById(i).classList.remove('hidden');window.scrollTo(0,0)}
+document.body.addEventListener('click',()=>{if(a.paused)toggleMusic()},{once:true});
+</script></body></html>
