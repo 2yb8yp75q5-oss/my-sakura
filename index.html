@@ -3,93 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>风的小窝 - 樱花限定版</title>
+    <title>风的小窝 - 导航站</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
-        body { background-color: #fff5f7; font-family: 'ZCOOL KuaiLe', cursive; overflow-x: hidden; }
-        .sakura-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
-        .glass-card { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(10px); border: 2px solid #ffb7c5; border-radius: 2rem; }
-        .cute-btn { transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
-        .cute-btn:hover { transform: scale(1.05); }
-        .animate-pop { animation: pop 0.3s ease-out; }
-        @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .hidden { display: none; }
+        body { background-color: #fff5f6; font-family: 'Microsoft YaHei', sans-serif; }
+        .sakura-bg { background: linear-gradient(180deg, #fff5f6 0%, #ffebf0 100%); min-height: 100vh; }
+        .cute-btn { transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 2px solid #ffccd5; }
+        .cute-btn:active { transform: scale(0.95); }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-6">
-    <canvas id="sakura-canvas" class="sakura-bg"></canvas>
+<body class="sakura-bg p-6 flex items-center justify-center">
 
-    <div id="main-page" class="glass-card w-full max-w-md p-8 shadow-2xl z-10 text-center animate-pop">
-        <div class="relative inline-block mb-6">
-            <img src="tx.jpg" alt="头像" class="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover">
-            <span class="absolute bottom-2 right-2 text-3xl">🌸</span>
+    <div id="main-page" class="w-full max-w-md space-y-8 text-center">
+        <div class="relative inline-block">
+            <div class="w-28 h-28 rounded-full border-4 border-white shadow-lg overflow-hidden mx-auto bg-pink-100">
+                <img src="tx.jpg" onerror="this.src='tx.png'; this.onerror=function(){this.src='https://via.placeholder.com/150?text=Avatar'}" class="w-full h-full object-cover">
+            </div>
+            <div class="absolute -bottom-2 -right-2 bg-pink-400 text-white text-xs px-2 py-1 rounded-full shadow-sm">🌸</div>
         </div>
-        <h1 class="text-3xl font-bold text-[#ff6b81] mb-2">风的小窝</h1>
-        <p class="text-[#ffb7c5] italic mb-8">“为了那些死去的、还活着的人，战斗下去。”</p>
 
-        <div class="space-y-4 text-sm">
-            <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=..." target="_blank" class="cute-btn block w-full bg-[#ff8fa3] text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2">
+        <div>
+            <h1 class="text-2xl font-bold text-[#ff8fa3] mb-2">风的小窝</h1>
+            <p class="text-gray-500 text-sm">“为了那些想我的、还没想的人，在此下笔。”</p>
+        </div>
+
+        <div class="space-y-4">
+            <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=njNYflcvtDV7cH8x3mS7kayffGbS3O2u4sPCUkexnFhFw9kbcYpwGWJ2U9OuGO25&busi_data=eyJncm91cENvZGUiOiI2OTExMDUzODEiLCJ0b2tlbiI6InlYVDQzL01oeWRrUVRYYUJVTEQ1MWY4SmlLdEVpMXU2Yy9vQWpGQ2VYYVVDS0w2d3lhZ2UxQVNQUkYxc2ZPTmEiLCJ1aW4iOiIyOTAyOTM5NjkyIn0%3D&data=tJLaos7LziJOC0L5lzVrrSqOpLXkh93PEV6fZkDCB-i7MymgfGQpBJlXBV-g4UFlCL6oVO-6jKxNF6cFcUr5wg&svctype=4&tempid=h5_group_info" 
+               target="_blank" class="cute-btn block w-full bg-[#ff8fa3] text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 shadow-md">
                 <span>💗</span> 一键加入 QQ 交流群
             </a>
-            <div onclick="showTutorial()" class="cute-btn block w-full bg-white text-[#ff8fa3] border-2 border-[#ffb7c5] font-bold py-4 rounded-2xl flex items-center justify-center gap-2">
-                <span>📚</span> 科学上网·魔法手册
-            </div>
-            <button onclick="openPayModal()" class="cute-btn block w-full bg-[#ffb7c5] text-white font-bold py-4 rounded-2xl shadow-md">
-                <span>💎</span> 获取进阶魔法群
+
+            <button onclick="showPage('manual-page')" class="cute-btn block w-full bg-white text-[#ff8fa3] font-bold py-4 rounded-2xl flex items-center justify-center gap-2 shadow-sm">
+                <span>📚</span> 科学上网·激活手册
             </button>
+
+            <a href="https://t.me/Feng_180" target="_blank" class="cute-btn block w-full bg-[#a2d2ff] text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 shadow-md">
+                <span>🚀</span> 获取最新的魔法师
+            </a>
         </div>
     </div>
 
-    <div id="tutorial-page" class="glass-card w-full max-w-md p-8 shadow-2xl z-10 hidden animate-pop">
-        <div onclick="showMain()" class="text-[#ff6b81] font-bold mb-4 cursor-pointer">← 返回主页</div>
-        <h2 class="text-2xl font-bold text-[#ff6b81] mb-6 text-center">📖 魔法手册</h2>
-        <div class="space-y-4 text-sm text-[#ff8fa3]">
-            <div class="bg-white/50 p-3 rounded-xl border border-pink-100">
-                <p class="font-bold">1. 获取链接</p>
-                <p class="text-xs">加群获取订阅，VIP用户私聊主页君。</p>
+    <div id="manual-page" class="hidden w-full max-w-md space-y-6 text-center">
+        <button onclick="showPage('main-page')" class="text-[#ff8fa3] flex items-center gap-1 font-bold mb-4">
+            ⬅️ 返回主页
+        </button>
+        
+        <div class="glass-card p-6 rounded-3xl shadow-xl">
+            <h2 class="text-xl font-bold text-[#ff8fa3] mb-4">赞赏与支持</h2>
+            <p class="text-gray-600 text-sm mb-6">如果你觉得手册有帮助，可以请我喝杯咖啡 ☕</p>
+            
+            <div class="bg-white p-4 rounded-2xl inline-block shadow-inner mb-4">
+                <img src="skm.jpg" onerror="this.src='skm.png'; this.onerror=function(){this.src='https://via.placeholder.com/200?text=Wait+Image'}" class="w-48 h-48 object-contain mx-auto">
             </div>
-            <div class="bg-white/50 p-3 rounded-xl border border-pink-100">
-                <p class="font-bold">2. 下载工具</p>
-                <p class="text-xs">Win: v2rayN | 安卓: Clash | iOS: 小火箭。</p>
-            </div>
-            <div class="bg-white/50 p-3 rounded-xl border border-pink-100">
-                <p class="font-bold">3. 导入连接</p>
-                <p class="text-xs">复制链接至软件更新订阅，开启代理即可。</p>
-            </div>
-        </div>
-        <a href="https://qun.qq.com/..." class="block mt-6 bg-[#ff8fa3] text-white text-center font-bold py-3 rounded-xl">立即加群</a>
-    </div>
-
-    <div id="pay-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center px-4">
-        <div class="absolute inset-0 bg-pink-200/40 backdrop-blur-sm" onclick="closePayModal()"></div>
-        <div class="bg-white/95 max-w-sm w-full p-8 text-center relative animate-pop z-[210] border-2 border-[#ffb7c5] rounded-[2.5rem]">
-            <button onclick="closePayModal()" class="absolute top-4 right-4 text-[#ffb7c5] text-2xl">✕</button>
-            <h2 class="text-xl font-bold text-[#ff6b81] mb-4">加入进阶魔法阵</h2>
-            <img src="skm.jpg" class="w-40 h-40 mx-auto rounded-xl mb-4">
-            <p class="text-[10px] text-[#ff6b81]">扫码赞助5元，备注QQ后私聊 2902939692</p>
+            
+            <p class="text-xs text-pink-400">点击图片长按可保存扫码</p>
         </div>
     </div>
 
     <script>
-        function showTutorial() { document.getElementById('main-page').classList.add('hidden'); document.getElementById('tutorial-page').classList.remove('hidden'); }
-        function showMain() { document.getElementById('tutorial-page').classList.add('hidden'); document.getElementById('main-page').classList.remove('hidden'); }
-        function openPayModal() { document.getElementById('pay-modal').classList.remove('hidden'); }
-        function closePayModal() { document.getElementById('pay-modal').classList.add('hidden'); }
-
-        // 樱花特效 (简略版)
-        const canvas = document.getElementById('sakura-canvas');
-        const ctx = canvas.getContext('2d');
-        let sakuraArray = [];
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        class Sakura {
-            constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.size = Math.random()*8+4; this.speedY = Math.random()*1+1; }
-            draw() { ctx.fillStyle = '#ffb7c5'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill(); }
-            update() { this.y += this.speedY; if(this.y > canvas.height) this.y = -10; }
+        function showPage(pageId) {
+            document.getElementById('main-page').classList.add('hidden');
+            document.getElementById('manual-page').classList.add('hidden');
+            document.getElementById(pageId).classList.remove('hidden');
         }
-        function init() { resize(); for(let i=0; i<25; i++) sakuraArray.push(new Sakura()); }
-        function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); sakuraArray.forEach(s=>{s.update();s.draw();}); requestAnimationFrame(animate); }
-        init(); animate();
     </script>
 </body>
 </html>
