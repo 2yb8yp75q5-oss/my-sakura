@@ -12,9 +12,9 @@
         .cute-btn:active { transform: scale(0.95); }
         .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); }
         
-        /* 旋转头像播放器样式 */
-        .music-player { position: fixed; bottom: 20px; right: 20px; background: white; padding: 5px 15px 5px 5px; border-radius: 50px; display: flex; align-items: center; gap: 10px; shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 100; border: 1px solid #ffccd5; }
-        .music-disk { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #ff8fa3; animation: rotate 5s linear infinite; animation-play-state: paused; }
+        /* 旋转头像播放器 */
+        .music-player { position: fixed; bottom: 20px; right: 20px; background: white; padding: 5px 15px 5px 5px; border-radius: 50px; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 100; border: 1px solid #ffccd5; }
+        .music-disk { width: 40px; height: 40px; rounded-full; border: 2px solid #ff8fa3; animation: rotate 5s linear infinite; animation-play-state: paused; border-radius: 50%; }
         .music-disk.playing { animation-play-state: running; }
         @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         
@@ -69,7 +69,7 @@
             </button>
         </div>
 
-        <div class="mt-8 p-4 glass-card rounded-2xl border-dashed border-pink-200 border-2">
+        <div class="mt-8 p-4 glass-card rounded-2xl border-dashed border-pink-200 border-2 text-center">
             <p class="text-[10px] text-pink-400 mb-2 italic">✨ 我们的契约次数 (访客统计) ✨</p>
             <div class="flex justify-center gap-1">
                 <span class="bg-white border border-pink-200 px-2 py-1 rounded text-lg font-mono">0</span>
@@ -77,18 +77,18 @@
                 <span class="bg-white border border-pink-200 px-2 py-1 rounded text-lg font-mono">1</span>
                 <span class="bg-white border border-pink-200 px-2 py-1 rounded text-lg font-mono text-pink-500">9</span>
             </div>
-            <p class="text-[8px] text-gray-400 mt-2">若跳转失败，请长按并在浏览器打开</p>
         </div>
     </div>
 
     <div id="manual-page" class="hidden w-full max-w-sm">
         <button onclick="showPage('main-page')" class="text-pink-400 text-sm mb-4">⬅️ 返回</button>
-        <div class="glass-card p-6 rounded-2xl shadow-sm text-sm text-gray-600 leading-loose">
-            <h2 class="text-pink-500 font-bold mb-4 text-center">科学上网·操作全手册</h2>
-            <p>1. 复制你的专属订阅链接。</p>
-            <p>2. 打开客户端选择导入配置。</p>
-            <p>3. 开启代理后选择延迟最低的节点。</p>
-            <p class="mt-4 text-[10px] text-pink-300">更多详细视频教程请在群文件查看。</p>
+        <div class="glass-card p-6 rounded-2xl shadow-sm text-sm text-gray-600 leading-loose text-center">
+            <h2 class="text-pink-500 font-bold mb-4">科学上网·操作手册</h2>
+            <div class="text-left space-y-2">
+                <p>1. 复制专属订阅链接。</p>
+                <p>2. 在客户端选择导入配置。</p>
+                <p>3. 开启代理后选择节点即可。</p>
+            </div>
         </div>
     </div>
 
@@ -96,7 +96,7 @@
         <button onclick="showPage('main-page')" class="text-pink-400 text-sm mb-4 text-left block">⬅️ 返回</button>
         <div class="glass-card p-6 rounded-2xl shadow-sm">
             <h2 class="text-pink-500 font-bold mb-2">获取最新魔法</h2>
-            <p class="text-[10px] text-gray-400 mb-4">扫码支持作者，获取持续更新</p>
+            <p class="text-[10px] text-gray-400 mb-4 text-center">扫码赞助支持，获取持续更新</p>
             <img src="./skm.jpg" class="w-48 h-48 mx-auto rounded-lg shadow-inner">
             <p class="mt-4 text-[10px] text-pink-300">长按二维码保存图片</p>
         </div>
@@ -126,7 +126,7 @@
             document.getElementById(id).classList.remove('hidden');
         }
 
-        // 首次点击屏幕自动播放（适配浏览器政策）
+        // 首次点击屏幕播放
         document.body.addEventListener('click', () => {
             if(audio.paused) toggleMusic();
         }, { once: true });
