@@ -6,7 +6,7 @@
     <title>风的小窝 - 导航站</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #fff5f6; font-family: 'Microsoft YaHei', sans-serif; }
+        body { background-color: #fff5f6; font-family: 'Microsoft YaHei', sans-serif; overflow-x: hidden; }
         .sakura-bg { background: linear-gradient(180deg, #fff5f6 0%, #ffebf0 100%); min-height: 100vh; }
         .cute-btn { transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 2px solid #ffccd5; }
         .cute-btn:active { transform: scale(0.95); }
@@ -15,17 +15,21 @@
 </head>
 <body class="sakura-bg p-6 flex items-center justify-center">
 
+    <audio id="bgMusic" loop>
+        <source src="bg.mp3" type="audio/mpeg">
+    </audio>
+
     <div id="main-page" class="w-full max-w-md space-y-8 text-center">
         <div class="relative inline-block">
             <div class="w-28 h-28 rounded-full border-4 border-white shadow-lg overflow-hidden mx-auto bg-pink-100">
-                <img src="tx.jpg" onerror="this.src='tx.png'; this.onerror=function(){this.src='https://via.placeholder.com/150?text=Avatar'}" class="w-full h-full object-cover">
+                <img src="./tx.jpg" class="w-full h-full object-cover">
             </div>
             <div class="absolute -bottom-2 -right-2 bg-pink-400 text-white text-xs px-2 py-1 rounded-full shadow-sm">🌸</div>
         </div>
 
         <div>
             <h1 class="text-2xl font-bold text-[#ff8fa3] mb-2">风的小窝</h1>
-            <p class="text-gray-500 text-sm">“为了那些想我的、还没想的人，在此下笔。”</p>
+            <p class="text-gray-500 text-sm">“欢迎来到我的个人导航站”</p>
         </div>
 
         <div class="space-y-4">
@@ -42,6 +46,8 @@
                 <span>🚀</span> 获取最新的魔法师
             </a>
         </div>
+
+        <p class="text-xs text-gray-400 mt-4">点击屏幕任意位置播放背景音乐 🎵</p>
     </div>
 
     <div id="manual-page" class="hidden w-full max-w-md space-y-6 text-center">
@@ -51,22 +57,31 @@
         
         <div class="glass-card p-6 rounded-3xl shadow-xl">
             <h2 class="text-xl font-bold text-[#ff8fa3] mb-4">赞赏与支持</h2>
-            <p class="text-gray-600 text-sm mb-6">如果你觉得手册有帮助，可以请我喝杯咖啡 ☕</p>
+            <p class="text-gray-600 text-sm mb-6">如果对你有帮助，欢迎请喝杯咖啡</p>
             
             <div class="bg-white p-4 rounded-2xl inline-block shadow-inner mb-4">
-                <img src="skm.jpg" onerror="this.src='skm.png'; this.onerror=function(){this.src='https://via.placeholder.com/200?text=Wait+Image'}" class="w-48 h-48 object-contain mx-auto">
+                <img src="./skm.jpg" class="w-48 h-48 object-contain mx-auto">
             </div>
             
-            <p class="text-xs text-pink-400">点击图片长按可保存扫码</p>
+            <p class="text-xs text-pink-400 uppercase tracking-widest">扫码支持作者</p>
         </div>
     </div>
 
     <script>
+        // 页面切换逻辑
         function showPage(pageId) {
             document.getElementById('main-page').classList.add('hidden');
             document.getElementById('manual-page').classList.add('hidden');
             document.getElementById(pageId).classList.remove('hidden');
         }
+
+        // 音乐触发逻辑：由于浏览器限制，需点击屏幕触发播放
+        document.body.addEventListener('click', function() {
+            var audio = document.getElementById('bgMusic');
+            if (audio.paused) {
+                audio.play();
+            }
+        }, { once: true });
     </script>
 </body>
 </html>
